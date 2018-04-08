@@ -1,0 +1,31 @@
+os: Visual Studio 2017
+
+version: "{build}-{branch}"
+
+cache:
+  - C:\Users\appveyor\.cargo
+  - target
+
+install:
+  - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
+  - rustup-init -yv
+  - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
+  - rustc -vV
+  - cargo -vV
+
+  - rustup component add rustfmt-preview
+  - rustfmt --version
+
+build: false
+
+test_script:
+  - cargo fmt -- --write-mode=diff
+  - cargo test
+  - cargo build --release
+
+after_test:
+  - 7z a svg_to_ico.7z .\target\release\svg_to_ico.exe README.md
+
+artifacts:
+  - path: svg_to_ico.7z
+    name: svg_to_ico

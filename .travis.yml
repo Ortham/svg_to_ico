@@ -1,0 +1,11 @@
+language: rust
+
+cache: cargo
+
+install:
+  - rustup component add rustfmt-preview
+  - rustfmt --version
+
+script:
+  - cargo fmt -- --write-mode=diff
+  - cargo test
