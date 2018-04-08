@@ -16,3 +16,16 @@ script:
   - cargo fmt -- --write-mode=diff
   - cargo build --release --target x86_64-unknown-linux-musl
   - cargo test --release --target x86_64-unknown-linux-musl
+
+after_success:
+  - tar -cJf svg_to_ico.tar.xz README.md -C target/x86_64-unknown-linux-musl/release svg_to_ico
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "U8EGNIGqeMPiau1mMM6A1029tu1IdcoRlieltdQFSxSJAFBSnuTvdVWXNDzBsjhTZLocP8m1UYR/xOnAME72LmNwsn8JPJzsy3bTJJEL0/JMZxCwOLf9mLARzsqZHC8k+SReSs+TRm6XINf/kelB516EhqI/HD+Bs+dBqTdhLX0dCPdUxrIP19K0QQtzRCFK1uU3wQAbvVOLxnMdVhs7LribMf2c6aFerhhHsWT0w+soGX3kuA3YSPH75rue04189wf2vn/0PuHuQN99jTfA++ApshtfcovPY7ngLhfzi3L29xnTgVgOYw8WP8AqxUPJI+Y+thH92IC6IEu3MjduQuhJSKOL/LDjoaluQYAd4biJeDrCbTiugnalC3JdwxySq3glbpcW3D4oUZeoj6OodgIOpIF/aAl5kTCdnSTBLSgfbnlLe0xOUWOwVCMZS+AJ/sdHlA0k1aoUFT2StHoA2GYcD2BSiJQQQS7lnppBzwmbB6QcL0lpP/Y4Iao6uRT2loYdWnbw1zT8qT8LADh3UKFe2qGeEv95HokEFsMqLPp41xYX+uN9mKf1yDC8XW1m7DGNBr7RKSnZnqExsG70K70irmK4b5k0mC2Nl9DCdmkhkajUHyTJj7vUTS4daZTy9RJ4WTAXpAbxpPsLVjoxYRPNT2iseqN/HEjVkLydm+o="
+  file: svg_to_ico.tar.xz
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true
