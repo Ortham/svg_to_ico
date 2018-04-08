@@ -2,11 +2,17 @@ language: rust
 
 cache: cargo
 
+addons:
+  apt:
+    packages:
+      - musl-tools
+
 install:
+  - rustup target add x86_64-unknown-linux-musl
   - rustup component add rustfmt-preview
   - rustfmt --version
 
 script:
   - cargo fmt -- --write-mode=diff
-  - cargo build --release
-  - cargo test --release
+  - cargo build --release --target x86_64-unknown-linux-musl
+  - cargo test --release --target x86_64-unknown-linux-musl
