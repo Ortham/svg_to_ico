@@ -20,8 +20,8 @@ build: false
 
 test_script:
   - cargo fmt -- --write-mode=diff
-  - cargo test
   - cargo build --release
+  - cargo test --release
 
 after_test:
   - 7z a svg_to_ico.7z .\target\release\svg_to_ico.exe README.md
