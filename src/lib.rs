@@ -1,3 +1,11 @@
+//! # svg_to_ico
+//!
+//! Simple SVG to ICO conversion.
+//!
+//! SVG images are parsed and rasterised using [Nano SVG](https://github.com/memononen/nanosvg),
+//! which is restricted to rendering flat filled shapes.
+//!
+//! This crate provides a single function to create an ICO file from an SVG file.
 extern crate ico;
 extern crate nsvg;
 #[cfg(test)]
@@ -7,11 +15,18 @@ use std::fs::{create_dir_all, File};
 use std::io;
 use std::path::Path;
 
+/// Error returned when creating an ICO file from an SVG file fails.
 #[derive(Debug)]
 pub enum Error {
+    /// An I/O error occurred, e.g. the input file doesn't exist.
     IoError(std::io::Error),
+    /// The input file contained a null byte. The underlying Nano SVG rasterizer accepts input SVG
+    /// content as a C string, so the SVG file cannot contain null bytes, as that would prematurely
+    /// mark the end of the content string.
     NulError(std::ffi::NulError),
+    /// Something went wrong when parsing the SVG file. Nano SVG doesn't expose any details.
     ParseError,
+    /// Something went wrong when rasterizing the SVG file. Nano SVG doesn't expose any details.
     RasterizeError,
 }
 
@@ -60,6 +75,32 @@ struct Image {
     data: Vec<u8>,
 }
 
+/// Create a new ICO file from given SVG file.
+///
+/// SVG dimensions are interpreted as pixels and the image rasterized using the given DPI. The ICO
+/// entry sizes are the heights in pixels of the images to store inside the ICO file: the SVG image
+/// will be scaled to produce images of the specified sizes. If the ICO
+/// file's parent directory does not exist, it will be created.
+///
+/// ## Examples
+///
+/// Interpret an SVG file as having a DPI of 96 and create an ICO file containing images with
+/// heights of 32 px and 64 px:
+///
+/// ```
+/// # extern crate svg_to_ico;
+/// use std::path::Path;
+/// use svg_to_ico::svg_to_ico;
+///
+/// # fn main() { run().unwrap() }
+/// # fn run() -> Result<(), svg_to_ico::Error> {
+/// let input = Path::new("examples/example.svg");
+/// let output = Path::new("examples/example.ico");
+///
+/// svg_to_ico(input, 96.0, output, &[32, 64])?;
+/// #     Ok(())
+/// # }
+/// ```
 pub fn svg_to_ico(
     svg_path: &Path,
     svg_dpi: f32,
