@@ -18,7 +18,7 @@ travis-ci = { repository = "WrinklyNinja/svg_to_ico" }
 [dependencies]
 clap = "2"
 ico = "0.1.0"
-nsvg = "0.4"
+nsvg = "0.5"
 
 [dev-dependencies]
 tempfile = "3"
