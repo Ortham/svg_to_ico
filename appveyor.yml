@@ -19,7 +19,7 @@ install:
 build: false
 
 test_script:
-  - cargo fmt -- --write-mode=diff
+  - cargo fmt -- --check
   - cargo build --release
   - cargo test --release
 

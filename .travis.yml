@@ -13,7 +13,7 @@ install:
   - rustfmt --version
 
 script:
-  - cargo fmt -- --write-mode=diff
+  - cargo fmt -- --check
   - cargo build --release --target x86_64-unknown-linux-musl
   - cargo test --release --target x86_64-unknown-linux-musl
 
