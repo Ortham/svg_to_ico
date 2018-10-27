@@ -1,8 +1,8 @@
 extern crate clap;
 extern crate svg_to_ico;
 
-use std::path::Path;
 use clap::{App, Arg};
+use std::path::Path;
 
 fn main() {
     let default_ico_sizes = vec![16, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, 128, 256];
