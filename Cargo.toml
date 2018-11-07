@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = ["Oliver Hamlet <oliver.hamlet@gmail.com>"]
 description = "A utility and Rust library to convert SVG icons into Windows ICO files."
 documentation = "https://docs.rs/svg_to_ico"
-repository = "https://github.com/WrinklyNinja/svg_to_ico.git"
+repository = "https://github.com/Ortham/svg_to_ico.git"
 readme = "README.md"
 license = "MIT"
 exclude = [
@@ -12,8 +12,8 @@ exclude = [
 ]
 
 [badges]
-appveyor = { repository = "WrinklyNinja/svg_to_ico" }
-travis-ci = { repository = "WrinklyNinja/svg_to_ico" }
+appveyor = { repository = "Ortham/svg_to_ico" }
+travis-ci = { repository = "Ortham/svg_to_ico" }
 
 [dependencies]
 clap = "2"

@@ -3,9 +3,9 @@ svg_to_ico
 
 [![Crate](https://img.shields.io/crates/v/svg_to_ico.svg)](https://crates.io/crates/svg_to_ico)
 [![docs](https://docs.rs/svg_to_ico/badge.svg)](https://docs.rs/crate/svg_to_ico)
-[![Travis Build Status](https://www.travis-ci.org/WrinklyNinja/svg_to_ico.svg?branch=master)](https://www.travis-ci.org/WrinklyNinja/svg_to_ico)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/WrinklyNinja/svg_to_ico?branch=master&svg=true)](https://ci.appveyor.com/project/WrinklyNinja/svg_to_ico)
-[![dependency status](https://deps.rs/repo/github/WrinklyNinja/svg_to_ico/status.svg)](https://deps.rs/repo/github/WrinklyNinja/svg_to_ico)
+[![Travis Build Status](https://www.travis-ci.org/Ortham/svg_to_ico.svg?branch=master)](https://www.travis-ci.org/Ortham/svg_to_ico)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/qgfqudc6qyu1liby/branch/master?svg=true)](https://ci.appveyor.com/project/Ortham/svg-to-ico/branch/master)
+[![dependency status](https://deps.rs/repo/github/Ortham/svg_to_ico/status.svg)](https://deps.rs/repo/github/Ortham/svg_to_ico)
 
 This is a small cross-platform CLI utility to convert SVG icons into Windows ICO files. SVG images
 are parsed and rasterised using
@@ -14,7 +14,7 @@ flat filled shapes.
 
 ## Download
 
-Precompiled binaries are [available](https://github.com/WrinklyNinja/svg_to_ico/releases/latest) for Windows and Linux. You can also `cargo install svg_to_ico` to build and install it from source.
+Precompiled binaries are [available](https://github.com/Ortham/svg_to_ico/releases/latest) for Windows and Linux. You can also `cargo install svg_to_ico` to build and install it from source.
 
 ## Build
 
