@@ -1,6 +1,3 @@
-extern crate clap;
-extern crate svg_to_ico;
-
 use clap::{App, Arg};
 use std::path::Path;
 

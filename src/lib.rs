@@ -6,11 +6,6 @@
 //! which is restricted to rendering flat filled shapes.
 //!
 //! This crate provides a single function to create an ICO file from an SVG file.
-extern crate ico;
-extern crate nsvg;
-#[cfg(test)]
-extern crate tempfile;
-
 use std::fs::{create_dir_all, File};
 use std::io;
 use std::path::Path;
