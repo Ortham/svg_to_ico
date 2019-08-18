@@ -2,43 +2,33 @@
 //!
 //! Simple SVG to ICO conversion.
 //!
-//! SVG images are parsed and rasterised using [Nano SVG](https://github.com/memononen/nanosvg),
-//! which is restricted to rendering flat filled shapes.
+//! SVG images are parsed and rasterised using [resvg](https://github.com/RazrFalcon/resvg)
+//! with its [raqote](https://github.com/jrmuizel/raqote) backend.
 //!
 //! This crate provides a single function to create an ICO file from an SVG file.
+use std::convert::TryFrom;
 use std::fs::{create_dir_all, File};
 use std::io;
 use std::path::Path;
+
+use resvg::usvg;
 
 /// Error returned when creating an ICO file from an SVG file fails.
 #[derive(Debug)]
 pub enum Error {
     /// An I/O error occurred, e.g. the input file doesn't exist.
     IoError(std::io::Error),
-    /// The input file contained a null byte. The underlying Nano SVG rasterizer accepts input SVG
-    /// content as a C string, so the SVG file cannot contain null bytes, as that would prematurely
-    /// mark the end of the content string.
+    /// No longer used.
     NulError(std::ffi::NulError),
-    /// Something went wrong when parsing the SVG file. Nano SVG doesn't expose any details.
+    /// Something went wrong when parsing the SVG file.
     ParseError,
-    /// Something went wrong when rasterizing the SVG file. Nano SVG doesn't expose any details.
+    /// Something went wrong when rasterizing the SVG file.
     RasterizeError,
 }
 
 impl From<std::io::Error> for Error {
     fn from(error: std::io::Error) -> Self {
         Error::IoError(error)
-    }
-}
-
-impl From<nsvg::Error> for Error {
-    fn from(error: nsvg::Error) -> Self {
-        match error {
-            nsvg::Error::IoError(e) => Error::IoError(e),
-            nsvg::Error::NulError(e) => Error::NulError(e),
-            nsvg::Error::ParseError => Error::ParseError,
-            nsvg::Error::MallocError | nsvg::Error::RasterizeError => Error::RasterizeError,
-        }
     }
 }
 
@@ -102,24 +92,44 @@ pub fn svg_to_ico(
     ico_path: &Path,
     ico_entry_sizes: &[u16],
 ) -> Result<(), Error> {
-    let svg = nsvg::parse_file(svg_path, nsvg::Units::Pixel, svg_dpi)?;
+    let mut opt = usvg::Options::default();
+    opt.path = Some(svg_path.into());
+    opt.dpi = svg_dpi.into();
+    let svg = usvg::Tree::from_file(svg_path, &opt).map_err(|_| Error::ParseError)?;
 
     let images: Vec<Image> = ico_entry_sizes
         .iter()
         .map(|size| rasterize(&svg, *size))
-        .collect::<Result<Vec<Image>, nsvg::Error>>()?;
+        .collect::<Result<Vec<Image>, Error>>()?;
 
     create_ico(ico_path, images).map_err(Error::from)
 }
 
-fn rasterize(svg: &nsvg::SvgImage, height_in_pixels: u16) -> Result<Image, nsvg::Error> {
-    let scale = height_in_pixels as f32 / svg.height();
+fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<Image, Error> {
+    let mut opt = resvg::Options::default();
+    opt.fit_to = resvg::FitTo::Height(height_in_pixels.into());
+    let image = match resvg::backend_raqote::render_to_image(svg, &opt) {
+        Some(i) => i,
+        None => return Err(Error::RasterizeError),
+    };
 
-    svg.rasterize(scale).map(|img| Image {
-        width: img.width(),
-        height: img.height(),
-        data: img.into_raw(),
+    let width = u32::try_from(image.width()).map_err(|_| Error::RasterizeError)?;
+    let height = u32::try_from(image.height()).map_err(|_| Error::RasterizeError)?;
+
+    Ok(Image {
+        width,
+        height,
+        data: argb_to_rgba(image.into_vec()),
     })
+}
+
+fn argb_to_rgba(argb: Vec<u32>) -> Vec<u8> {
+    argb.into_iter()
+        .flat_map(|pixel| {
+            let [a, r, g, b] = pixel.to_be_bytes();
+            vec![r, g, b, a].into_iter()
+        })
+        .collect()
 }
 
 fn create_ico(ico_path: &Path, pngs: Vec<Image>) -> io::Result<()> {
@@ -142,15 +152,37 @@ fn create_ico(ico_path: &Path, pngs: Vec<Image>) -> io::Result<()> {
 mod tests {
     use super::*;
 
+    fn load_svg(path: &Path) -> usvg::Tree {
+        let svg_dpi = 96.0;
+
+        let mut opt = usvg::Options::default();
+        opt.path = Some(path.into());
+        opt.dpi = svg_dpi.into();
+        usvg::Tree::from_file(path, &opt).unwrap()
+    }
+
     #[test]
     fn rasterize_should_scale_svg_to_given_height() {
-        let svg =
-            nsvg::parse_file(Path::new("examples/example.svg"), nsvg::Units::Pixel, 96.0).unwrap();
-        assert_eq!(24.0, svg.height());
-        assert_eq!(24.0, svg.width());
+        let svg_path = Path::new("examples/example.svg");
+        let svg = load_svg(svg_path);
+
+        assert_eq!(24.0, svg.svg_node().size.height());
+        assert_eq!(24.0, svg.svg_node().size.width());
 
         let image = rasterize(&svg, 400).unwrap();
         assert_eq!(400, image.height);
         assert_eq!(400, image.width);
+    }
+
+    #[test]
+    fn rasterize_should_set_pixel_colour_correctly() {
+        let svg_path = Path::new("examples/example.svg");
+        let svg = load_svg(svg_path);
+
+        let image = rasterize(&svg, 24).unwrap();
+        let pixel_index = 24 * 6 + 12;
+        let pixel = &image.data[pixel_index * 4..(pixel_index + 1) * 4];
+
+        assert_eq!(&[50, 100, 150, 255], pixel);
     }
 }

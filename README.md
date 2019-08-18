@@ -7,10 +7,9 @@ svg_to_ico
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/qgfqudc6qyu1liby/branch/master?svg=true)](https://ci.appveyor.com/project/Ortham/svg-to-ico/branch/master)
 [![dependency status](https://deps.rs/repo/github/Ortham/svg_to_ico/status.svg)](https://deps.rs/repo/github/Ortham/svg_to_ico)
 
-This is a small cross-platform CLI utility to convert SVG icons into Windows ICO files. SVG images
-are parsed and rasterised using
-[Nano SVG](https://github.com/memononen/nanosvg), which is restricted to rendering
-flat filled shapes.
+This is a small cross-platform CLI utility to convert SVG icons into Windows ICO
+files. SVG images are parsed and rasterised using [resvg](https://github.com/RazrFalcon/resvg)
+with its [raqote](https://github.com/jrmuizel/raqote) backend.
 
 ## Download
 
