@@ -1,6 +1,6 @@
 [package]
 name = "svg_to_ico"
-version = "1.0.0"
+version = "1.1.0"
 authors = ["Oliver Hamlet <oliver.hamlet@gmail.com>"]
 description = "A utility and Rust library to convert SVG icons into Windows ICO files."
 documentation = "https://docs.rs/svg_to_ico"
