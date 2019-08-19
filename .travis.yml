@@ -2,20 +2,22 @@ language: rust
 
 cache: cargo
 
-addons:
-  apt:
-    packages:
-      - musl-tools
-
-install:
-  - rustup target add x86_64-unknown-linux-musl
-  - rustup component add rustfmt
-  - rustfmt --version
+services:
+  - docker
 
 script:
-  - cargo fmt -- --check
-  - cargo build --release --target x86_64-unknown-linux-musl
-  - cargo test --release --target x86_64-unknown-linux-musl
+  - >-
+    docker run --rm -v $PWD:/svg_to_ico rust:slim
+    /bin/sh -c "apt update
+    && apt install -y cmake git g++ musl-dev musl-tools curl
+    && ln -s /usr/bin/g++ /usr/bin/musl-g++
+    && rustup target add x86_64-unknown-linux-musl
+    && rustup component add rustfmt
+    && rustfmt --version
+    && cd svg_to_ico
+    && cargo fmt -- --check
+    && cargo build --release --target x86_64-unknown-linux-musl
+    && cargo test --release --target x86_64-unknown-linux-musl"
 
 after_success:
   - tar -cJf svg_to_ico.tar.xz README.md -C target/x86_64-unknown-linux-musl/release svg_to_ico
