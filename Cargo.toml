@@ -13,7 +13,6 @@ exclude = [
 edition = "2018"
 
 [badges]
-appveyor = { repository = "Ortham/svg_to_ico" }
 travis-ci = { repository = "Ortham/svg_to_ico" }
 
 [dependencies]

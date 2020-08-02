@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags: '*'
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  create_release:
+    runs-on: ubuntu-18.04
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
+    steps:
+      - id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: svg_to_ico ${{ github.ref }}
+          body: "The `.7z` archive contains a Windows binary and the `.tar.xz` archive contains a Linux binary statically linked against musl for increased portability."
+
+  windows:
+    runs-on: windows-2019
+    needs: create_release
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Build
+        run: cargo build --release
+
+      - name: Package
+        run: 7z a svg_to_ico.7z .\target\release\svg_to_ico.exe README.md
+
+      - name: Upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./svg_to_ico.7z
+          asset_name: svg_to_ico.7z
+          asset_content_type: application/x-7z-compressed
