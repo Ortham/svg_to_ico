@@ -6,12 +6,9 @@
 //! with its [raqote](https://github.com/jrmuizel/raqote) backend.
 //!
 //! This crate provides a single function to create an ICO file from an SVG file.
-use std::convert::TryFrom;
 use std::fs::{create_dir_all, File};
 use std::io;
 use std::path::Path;
-
-use resvg::usvg;
 
 /// Error returned when creating an ICO file from an SVG file fails.
 #[derive(Debug)]
@@ -54,12 +51,6 @@ impl std::fmt::Display for Error {
     }
 }
 
-struct Image {
-    width: u32,
-    height: u32,
-    data: Vec<u8>,
-}
-
 /// Create a new ICO file from given SVG file.
 ///
 /// SVG dimensions are interpreted as pixels and the image rasterized using the given DPI. The ICO
@@ -97,46 +88,25 @@ pub fn svg_to_ico(
     opt.dpi = svg_dpi.into();
     let svg = usvg::Tree::from_file(svg_path, &opt).map_err(|_| Error::ParseError)?;
 
-    let images: Vec<Image> = ico_entry_sizes
+    let images = ico_entry_sizes
         .iter()
         .map(|size| rasterize(&svg, *size))
-        .collect::<Result<Vec<Image>, Error>>()?;
+        .collect::<Result<Vec<resvg::Image>, Error>>()?;
 
     create_ico(ico_path, images).map_err(Error::from)
 }
 
-fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<Image, Error> {
-    let mut opt = resvg::Options::default();
-    opt.fit_to = resvg::FitTo::Height(height_in_pixels.into());
-    let image = match resvg::backend_raqote::render_to_image(svg, &opt) {
-        Some(i) => i,
-        None => return Err(Error::RasterizeError),
-    };
+fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<resvg::Image, Error> {
+    let fit_to = usvg::FitTo::Height(height_in_pixels.into());
 
-    let width = u32::try_from(image.width()).map_err(|_| Error::RasterizeError)?;
-    let height = u32::try_from(image.height()).map_err(|_| Error::RasterizeError)?;
-
-    Ok(Image {
-        width,
-        height,
-        data: argb_to_rgba(image.into_vec()),
-    })
+    resvg::render(svg, fit_to, None).ok_or(Error::RasterizeError)
 }
 
-fn argb_to_rgba(argb: Vec<u32>) -> Vec<u8> {
-    argb.into_iter()
-        .flat_map(|pixel| {
-            let [a, r, g, b] = pixel.to_be_bytes();
-            vec![r, g, b, a].into_iter()
-        })
-        .collect()
-}
-
-fn create_ico(ico_path: &Path, pngs: Vec<Image>) -> io::Result<()> {
+fn create_ico(ico_path: &Path, pngs: Vec<resvg::Image>) -> io::Result<()> {
     let mut icon_dir = ico::IconDir::new(ico::ResourceType::Icon);
 
     for png in pngs {
-        let image = ico::IconImage::from_rgba_data(png.width, png.height, png.data);
+        let image = ico::IconImage::from_rgba_data(png.width(), png.height(), png.take());
         icon_dir.add_entry(ico::IconDirEntry::encode(&image)?);
     }
 
@@ -170,8 +140,8 @@ mod tests {
         assert_eq!(24.0, svg.svg_node().size.width());
 
         let image = rasterize(&svg, 400).unwrap();
-        assert_eq!(400, image.height);
-        assert_eq!(400, image.width);
+        assert_eq!(400, image.height());
+        assert_eq!(400, image.width());
     }
 
     #[test]
@@ -181,7 +151,7 @@ mod tests {
 
         let image = rasterize(&svg, 24).unwrap();
         let pixel_index = 24 * 6 + 12;
-        let pixel = &image.data[pixel_index * 4..(pixel_index + 1) * 4];
+        let pixel = &image.take()[pixel_index * 4..(pixel_index + 1) * 4];
 
         assert_eq!(&[50, 100, 150, 255], pixel);
     }

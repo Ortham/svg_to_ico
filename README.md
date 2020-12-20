@@ -7,8 +7,7 @@ svg_to_ico
 [![dependency status](https://deps.rs/repo/github/Ortham/svg_to_ico/status.svg)](https://deps.rs/repo/github/Ortham/svg_to_ico)
 
 This is a small cross-platform CLI utility to convert SVG icons into Windows ICO
-files. SVG images are parsed and rasterised using [resvg](https://github.com/RazrFalcon/resvg)
-with its [raqote](https://github.com/jrmuizel/raqote) backend.
+files. SVG images are parsed and rasterised using [resvg](https://github.com/RazrFalcon/resvg).
 
 ## Download
 
