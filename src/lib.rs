@@ -29,17 +29,6 @@ impl From<std::io::Error> for Error {
     }
 }
 
-impl std::error::Error for Error {
-    fn description(&self) -> &str {
-        match *self {
-            Error::IoError(ref e) => e.description(),
-            Error::NulError(ref e) => e.description(),
-            Error::ParseError => "An unknown SVG parsing error",
-            Error::RasterizeError => "Failed to rasterize SVG",
-        }
-    }
-}
-
 impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
         match *self {
