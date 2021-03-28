@@ -84,25 +84,34 @@ pub fn svg_to_ico(
     ico_entry_sizes: &[u16],
 ) -> Result<(), Error> {
     let mut opt = usvg::Options::default();
-    opt.path = Some(svg_path.into());
     opt.dpi = svg_dpi.into();
     let svg = usvg::Tree::from_file(svg_path, &opt).map_err(|_| Error::ParseError)?;
 
     let images = ico_entry_sizes
         .iter()
         .map(|size| rasterize(&svg, *size))
-        .collect::<Result<Vec<resvg::Image>, Error>>()?;
+        .collect::<Result<Vec<_>, Error>>()?;
 
     create_ico(ico_path, images).map_err(Error::from)
 }
 
-fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<resvg::Image, Error> {
+fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixmap, Error> {
     let fit_to = usvg::FitTo::Height(height_in_pixels.into());
+    let svg_size = svg.svg_node().size;
+    let target_height = f64::from(height_in_pixels);
+    let target_width = svg_size.width() * target_height / svg_size.height();
 
-    resvg::render(svg, fit_to, None).ok_or(Error::RasterizeError)
+    usvg::Size::new(target_width, target_height)
+        .map(|size| size.to_screen_size())
+        .and_then(|size| tiny_skia::Pixmap::new(size.width(), size.height()))
+        .map(|mut pixmap| {
+            resvg::render(svg, fit_to, pixmap.as_mut());
+            pixmap
+        })
+        .ok_or(Error::RasterizeError)
 }
 
-fn create_ico(ico_path: &Path, pngs: Vec<resvg::Image>) -> io::Result<()> {
+fn create_ico(ico_path: &Path, pngs: Vec<tiny_skia::Pixmap>) -> io::Result<()> {
     let mut icon_dir = ico::IconDir::new(ico::ResourceType::Icon);
 
     for png in pngs {
@@ -126,7 +135,6 @@ mod tests {
         let svg_dpi = 96.0;
 
         let mut opt = usvg::Options::default();
-        opt.path = Some(path.into());
         opt.dpi = svg_dpi.into();
         usvg::Tree::from_file(path, &opt).unwrap()
     }
