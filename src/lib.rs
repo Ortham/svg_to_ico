@@ -72,8 +72,10 @@ pub fn svg_to_ico(
     ico_path: &Path,
     ico_entry_sizes: &[u16],
 ) -> Result<(), Error> {
-    let mut opt = usvg::Options::default();
-    opt.dpi = svg_dpi.into();
+    let opt = usvg::Options {
+        dpi: svg_dpi.into(),
+        ..Default::default()
+    };
 
     let file_content = read(svg_path)?;
     let svg = usvg::Tree::from_data(&file_content, &opt).map_err(|_| Error::ParseError)?;
