@@ -6,7 +6,7 @@
 //! with its [raqote](https://github.com/jrmuizel/raqote) backend.
 //!
 //! This crate provides a single function to create an ICO file from an SVG file.
-use std::fs::{create_dir_all, File};
+use std::fs::{create_dir_all, read, File};
 use std::io;
 use std::path::Path;
 
@@ -74,7 +74,9 @@ pub fn svg_to_ico(
 ) -> Result<(), Error> {
     let mut opt = usvg::Options::default();
     opt.dpi = svg_dpi.into();
-    let svg = usvg::Tree::from_file(svg_path, &opt).map_err(|_| Error::ParseError)?;
+
+    let file_content = read(svg_path)?;
+    let svg = usvg::Tree::from_data(&file_content, &opt).map_err(|_| Error::ParseError)?;
 
     let images = ico_entry_sizes
         .iter()
@@ -125,7 +127,9 @@ mod tests {
 
         let mut opt = usvg::Options::default();
         opt.dpi = svg_dpi.into();
-        usvg::Tree::from_file(path, &opt).unwrap()
+
+        let file_content = read(path).unwrap();
+        usvg::Tree::from_data(&file_content, &opt).unwrap()
     }
 
     #[test]
