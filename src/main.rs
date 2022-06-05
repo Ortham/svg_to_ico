@@ -1,16 +1,14 @@
-use clap::{App, Arg};
+use clap::{Arg, Command};
 use std::path::Path;
 
 fn main() {
-    let default_ico_sizes = vec![16, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, 128, 256];
-
-    let matches = App::new(env!("CARGO_PKG_NAME"))
+    let matches = Command::new(env!("CARGO_PKG_NAME"))
         .version(env!("CARGO_PKG_VERSION"))
         .about(env!("CARGO_PKG_DESCRIPTION"))
         .author("Oliver Hamlet")
         .arg(
-            Arg::with_name("svg_path")
-                .short("i")
+            Arg::new("svg_path")
+                .short('i')
                 .long("input")
                 .value_name("FILE")
                 .help("Path to the SVG file to convert")
@@ -18,8 +16,8 @@ fn main() {
                 .required(true),
         )
         .arg(
-            Arg::with_name("svg_dpi")
-                .short("d")
+            Arg::new("svg_dpi")
+                .short('d')
                 .long("dpi")
                 .value_name("DPI")
                 .help("DPI to use when interpreting the SVG file")
@@ -27,8 +25,8 @@ fn main() {
                 .default_value("96.0"),
         )
         .arg(
-            Arg::with_name("ico_path")
-                .short("o")
+            Arg::new("ico_path")
+                .short('o')
                 .long("output")
                 .value_name("FILE")
                 .help("Output path for the ICO file")
@@ -36,12 +34,16 @@ fn main() {
                 .required(true),
         )
         .arg(
-            Arg::with_name("ico_sizes")
-                .short("s")
+            Arg::new("ico_sizes")
+                .short('s')
                 .long("size")
                 .value_name("SIZE")
-                .multiple(true)
-                .long_help(&format!("An image size (height in pixels) to include within the ICO file. If no sizes are specified, the following are used: {:?}.", default_ico_sizes))
+                .multiple_values(true)
+                .default_values(&[
+                    "16", "20", "24", "30", "32", "36", "40", "48", "60", "64", "72", "80", "96",
+                    "128", "256",
+                ])
+                .long_help("An image size (height in pixels) to include within the ICO file.")
                 .takes_value(true),
         )
         .get_matches();
@@ -52,7 +54,7 @@ fn main() {
     let ico_sizes: Vec<u16> = matches
         .values_of("ico_sizes")
         .map(|i| i.map(|v| v.parse::<u16>().unwrap()).collect())
-        .unwrap_or(default_ico_sizes);
+        .unwrap();
 
     svg_to_ico::svg_to_ico(svg_path, svg_dpi, ico_path, &ico_sizes).unwrap();
 }

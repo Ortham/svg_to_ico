@@ -78,7 +78,7 @@ pub fn svg_to_ico(
     };
 
     let file_content = read(svg_path)?;
-    let svg = usvg::Tree::from_data(&file_content, &opt).map_err(|_| Error::ParseError)?;
+    let svg = usvg::Tree::from_data(&file_content, &opt.to_ref()).map_err(|_| Error::ParseError)?;
 
     let images = ico_entry_sizes
         .iter()
@@ -98,7 +98,12 @@ fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixma
         .map(|size| size.to_screen_size())
         .and_then(|size| tiny_skia::Pixmap::new(size.width(), size.height()))
         .map(|mut pixmap| {
-            resvg::render(svg, fit_to, pixmap.as_mut());
+            resvg::render(
+                svg,
+                fit_to,
+                tiny_skia::Transform::identity(),
+                pixmap.as_mut(),
+            );
             pixmap
         })
         .ok_or(Error::RasterizeError)
@@ -131,7 +136,7 @@ mod tests {
         opt.dpi = svg_dpi.into();
 
         let file_content = read(path).unwrap();
-        usvg::Tree::from_data(&file_content, &opt).unwrap()
+        usvg::Tree::from_data(&file_content, &opt.to_ref()).unwrap()
     }
 
     #[test]

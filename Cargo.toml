@@ -16,11 +16,11 @@ edition = "2018"
 travis-ci = { repository = "Ortham/svg_to_ico" }
 
 [dependencies]
-clap = "2"
+clap = "3"
 ico = "0.1.0"
-resvg = "0.15"
-usvg = "0.15"
-tiny-skia = "0.5"
+resvg = "0.22"
+usvg = "0.22"
+tiny-skia = "0.6"
 
 [dev-dependencies]
 tempfile = "3"
