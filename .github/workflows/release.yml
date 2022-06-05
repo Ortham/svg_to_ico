@@ -10,8 +10,10 @@ env:
 jobs:
   create_release:
     runs-on: ubuntu-18.04
+
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
+
     steps:
       - id: create_release
         uses: actions/create-release@v1
@@ -31,9 +33,11 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Build
