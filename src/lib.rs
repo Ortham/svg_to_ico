@@ -89,14 +89,13 @@ pub fn svg_to_ico(
 }
 
 fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixmap, Error> {
-    let fit_to = usvg::FitTo::Height(height_in_pixels.into());
-    let svg_size = svg.svg_node().size;
-    let target_height = f64::from(height_in_pixels);
-    let target_width = svg_size.width() * target_height / svg_size.height();
+    let target_size = usvg::Size::new(height_in_pixels.into(), height_in_pixels.into())
+        .expect("Unsigned values should always be valid");
 
-    usvg::Size::new(target_width, target_height)
-        .map(|size| size.to_screen_size())
-        .and_then(|size| tiny_skia::Pixmap::new(size.width(), size.height()))
+    let pixmap_size = svg.svg_node().size.scale_to(target_size).to_screen_size();
+    let fit_to = usvg::FitTo::Size(height_in_pixels.into(), height_in_pixels.into());
+
+    tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height())
         .map(|mut pixmap| {
             resvg::render(
                 svg,
@@ -162,5 +161,18 @@ mod tests {
         let pixel = &image.take()[pixel_index * 4..(pixel_index + 1) * 4];
 
         assert_eq!(&[50, 100, 150, 255], pixel);
+    }
+
+    #[test]
+    fn rasterize_should_scale_svg_with_width_longer_than_height() {
+        let svg_path = Path::new("examples/landscape.svg");
+        let svg = load_svg(svg_path);
+
+        assert_eq!(24.0, svg.svg_node().size.height());
+        assert_eq!(48.0, svg.svg_node().size.width());
+
+        let image = rasterize(&svg, 400).unwrap();
+        assert_eq!(200, image.height());
+        assert_eq!(400, image.width());
     }
 }

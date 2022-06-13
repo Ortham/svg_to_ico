@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 24" preserveAspectRatio="xMidYMid meet" style="pointer-events: none; display: block;">
+    <circle cx="24" cy="12" r="10" style="fill: rgb(50, 100, 150);" />
+    <path d="m 20,17 0,-9 0.4,0 3.2,5 0.8,0 3.2,-5 0.4,0 0,9" style="stroke: white; stroke-width: 2; fill: none;" />
+</svg>
