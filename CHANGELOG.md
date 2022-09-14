@@ -1,5 +1,21 @@
 # Changelog
 
+## [1.2.0] - 2022-09-14
+
+### Fixed
+
+- Panic when working with an image that is wider than it is tall.
+
+### Changed
+
+- Updated `resvg` to 0.23 and switched to the `usvg` backend.
+- Updated `clap` to 3.2.21.
+- Updated patch versions of various indirect dependencies.
+
+### Removed
+
+- Deprecated `Error::description()` implementation.
+
 ## [1.1.0] - 2019-08-18
 
 ### Changed
