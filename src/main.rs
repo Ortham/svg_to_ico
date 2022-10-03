@@ -1,5 +1,6 @@
-use clap::{Arg, Command};
-use std::path::Path;
+use clap::value_parser;
+use clap::{Arg, ArgAction, Command};
+use std::path::PathBuf;
 
 fn main() {
     let matches = Command::new(env!("CARGO_PKG_NAME"))
@@ -11,8 +12,8 @@ fn main() {
                 .short('i')
                 .long("input")
                 .value_name("FILE")
+                .value_parser(value_parser!(PathBuf))
                 .help("Path to the SVG file to convert")
-                .takes_value(true)
                 .required(true),
         )
         .arg(
@@ -20,8 +21,8 @@ fn main() {
                 .short('d')
                 .long("dpi")
                 .value_name("DPI")
+                .value_parser(value_parser!(f32))
                 .help("DPI to use when interpreting the SVG file")
-                .takes_value(true)
                 .default_value("96.0"),
         )
         .arg(
@@ -29,8 +30,8 @@ fn main() {
                 .short('o')
                 .long("output")
                 .value_name("FILE")
+                .value_parser(value_parser!(PathBuf))
                 .help("Output path for the ICO file")
-                .takes_value(true)
                 .required(true),
         )
         .arg(
@@ -38,23 +39,32 @@ fn main() {
                 .short('s')
                 .long("size")
                 .value_name("SIZE")
-                .multiple_values(true)
+                .value_parser(value_parser!(u16))
+                .action(ArgAction::Append)
+                .num_args(1..)
                 .default_values(&[
                     "16", "20", "24", "30", "32", "36", "40", "48", "60", "64", "72", "80", "96",
                     "128", "256",
                 ])
-                .long_help("An image size (height in pixels) to include within the ICO file.")
-                .takes_value(true),
+                .long_help("An image size (height in pixels) to include within the ICO file."),
         )
         .get_matches();
 
-    let svg_path = matches.value_of("svg_path").map(Path::new).unwrap();
-    let svg_dpi = matches.value_of("svg_dpi").unwrap().parse::<f32>().unwrap();
-    let ico_path = matches.value_of("ico_path").map(Path::new).unwrap();
+    let svg_path = matches
+        .get_one::<PathBuf>("svg_path")
+        .expect("svg_path is required");
+    let svg_dpi = matches
+        .get_one::<f32>("svg_dpi")
+        .copied()
+        .expect("svg_dpi is has a default value");
+    let ico_path = matches
+        .get_one::<PathBuf>("ico_path")
+        .expect("ico_path is required");
     let ico_sizes: Vec<u16> = matches
-        .values_of("ico_sizes")
-        .map(|i| i.map(|v| v.parse::<u16>().unwrap()).collect())
-        .unwrap();
+        .get_many("ico_sizes")
+        .expect("ico_sizes has a default value")
+        .copied()
+        .collect();
 
     svg_to_ico::svg_to_ico(svg_path, svg_dpi, ico_path, &ico_sizes).unwrap();
 }
