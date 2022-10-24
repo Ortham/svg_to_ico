@@ -19,7 +19,7 @@ travis-ci = { repository = "Ortham/svg_to_ico" }
 clap = "4"
 ico = "0.1.0"
 resvg = "0.23"
-usvg = "0.23"
+usvg = "0.24"
 tiny-skia = "0.6"
 
 [dev-dependencies]
