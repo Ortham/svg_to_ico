@@ -20,7 +20,7 @@ clap = "4"
 ico = "0.1.0"
 resvg = "0.23"
 usvg = "0.23"
-tiny-skia = "0.6"
+tiny-skia = "0.8"
 
 [dev-dependencies]
 tempfile = "3"
