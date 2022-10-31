@@ -92,7 +92,7 @@ fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixma
     let target_size = usvg::Size::new(height_in_pixels.into(), height_in_pixels.into())
         .expect("Unsigned values should always be valid");
 
-    let pixmap_size = svg.svg_node().size.scale_to(target_size).to_screen_size();
+    let pixmap_size = svg.size.scale_to(target_size).to_screen_size();
     let fit_to = usvg::FitTo::Size(height_in_pixels.into(), height_in_pixels.into());
 
     tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height())
@@ -143,8 +143,8 @@ mod tests {
         let svg_path = Path::new("examples/example.svg");
         let svg = load_svg(svg_path);
 
-        assert_eq!(24.0, svg.svg_node().size.height());
-        assert_eq!(24.0, svg.svg_node().size.width());
+        assert_eq!(24.0, svg.size.height());
+        assert_eq!(24.0, svg.size.width());
 
         let image = rasterize(&svg, 400).unwrap();
         assert_eq!(400, image.height());
@@ -168,8 +168,8 @@ mod tests {
         let svg_path = Path::new("examples/landscape.svg");
         let svg = load_svg(svg_path);
 
-        assert_eq!(24.0, svg.svg_node().size.height());
-        assert_eq!(48.0, svg.svg_node().size.width());
+        assert_eq!(24.0, svg.size.height());
+        assert_eq!(48.0, svg.size.width());
 
         let image = rasterize(&svg, 400).unwrap();
         assert_eq!(200, image.height());
