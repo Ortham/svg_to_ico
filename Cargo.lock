@@ -349,7 +349,7 @@ dependencies = [
  "svgfilters",
  "svgtypes",
  "tiny-skia",
- "usvg",
+ "usvg 0.27.0",
 ]
 
 [[package]]
@@ -445,7 +445,7 @@ dependencies = [
  "resvg",
  "tempfile",
  "tiny-skia",
- "usvg",
+ "usvg 0.28.0",
 ]
 
 [[package]]
@@ -581,7 +581,26 @@ dependencies = [
  "unicode-bidi",
  "unicode-script",
  "unicode-vo",
- "xmlwriter",
+]
+
+[[package]]
+name = "usvg"
+version = "0.28.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b5b7c2b30845b3348c067ca3d09e20cc6e327c288f0ca4c48698712abf432e9"
+dependencies = [
+ "base64",
+ "data-url",
+ "flate2",
+ "imagesize",
+ "kurbo",
+ "log",
+ "rctree",
+ "roxmltree",
+ "simplecss",
+ "siphasher",
+ "strict-num",
+ "svgtypes",
 ]
 
 [[package]]
@@ -683,9 +702,3 @@ name = "xmlparser"
 version = "0.13.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4d25c75bf9ea12c4040a97f829154768bbbce366287e2dc044af160cd79a13fd"
-
-[[package]]
-name = "xmlwriter"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ec7a2a501ed189703dba8b08142f057e887dfc4b2cc4db2d343ac6376ba3e0b9"
