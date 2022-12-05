@@ -78,7 +78,7 @@ pub fn svg_to_ico(
     };
 
     let file_content = read(svg_path)?;
-    let svg = usvg::Tree::from_data(&file_content, &opt.to_ref()).map_err(|_| Error::ParseError)?;
+    let svg = usvg::Tree::from_data(&file_content, &opt).map_err(|_| Error::ParseError)?;
 
     let images = ico_entry_sizes
         .iter()
@@ -135,7 +135,7 @@ mod tests {
         opt.dpi = svg_dpi.into();
 
         let file_content = read(path).unwrap();
-        usvg::Tree::from_data(&file_content, &opt.to_ref()).unwrap()
+        usvg::Tree::from_data(&file_content, &opt).unwrap()
     }
 
     #[test]
