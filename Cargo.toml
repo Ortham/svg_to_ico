@@ -12,9 +12,6 @@ exclude = [
 ]
 edition = "2018"
 
-[badges]
-travis-ci = { repository = "Ortham/svg_to_ico" }
-
 [dependencies]
 clap = "4"
 ico = "0.3.0"

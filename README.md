@@ -3,7 +3,7 @@ svg_to_ico
 
 [![Crate](https://img.shields.io/crates/v/svg_to_ico.svg)](https://crates.io/crates/svg_to_ico)
 [![docs](https://docs.rs/svg_to_ico/badge.svg)](https://docs.rs/crate/svg_to_ico)
-[![Travis Build Status](https://www.travis-ci.org/Ortham/svg_to_ico.svg?branch=master)](https://www.travis-ci.org/Ortham/svg_to_ico)
+![CI](https://github.com/Ortham/libloadorder/workflows/CI/badge.svg?branch=master)
 [![dependency status](https://deps.rs/repo/github/Ortham/svg_to_ico/status.svg)](https://deps.rs/repo/github/Ortham/svg_to_ico)
 
 This is a small cross-platform CLI utility to convert SVG icons into Windows ICO

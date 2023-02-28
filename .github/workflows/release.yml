@@ -55,3 +55,41 @@ jobs:
           asset_path: ./svg_to_ico.7z
           asset_name: svg_to_ico.7z
           asset_content_type: application/x-7z-compressed
+
+  linux:
+    runs-on: ubuntu-20.04
+    needs: create_release
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Linux musl target
+        run: rustup target add x86_64-unknown-linux-musl
+
+      - name: Build
+        run: cargo build --release --target x86_64-unknown-linux-musl
+
+      - name: Test
+        run: cargo test --release --target x86_64-unknown-linux-musl
+
+      - name: Package
+        run: tar -cJf svg_to_ico.tar.xz README.md -C target/x86_64-unknown-linux-musl/release svg_to_ico
+
+      - name: Upload
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ needs.create_release.outputs.upload_url }}
+          asset_path: ./svg_to_ico.tar.xz
+          asset_name: svg_to_ico.tar.xz
+          asset_content_type: application/x-gtar

@@ -14,8 +14,15 @@ jobs:
       - name: Check formatting
         run: cargo fmt --all -- --check
 
-  windows:
-    runs-on: windows-2019
+  test:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-20.04
+          - windows-2019
+
+    runs-on: ${{ matrix.os }}
+
     steps:
       - uses: actions/checkout@v3
 
