@@ -10,6 +10,8 @@ use std::fs::{create_dir_all, read, File};
 use std::io;
 use std::path::Path;
 
+use usvg::TreeParsing;
+
 /// Error returned when creating an ICO file from an SVG file fails.
 #[derive(Debug)]
 pub enum Error {
@@ -93,7 +95,7 @@ fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixma
         .expect("Unsigned values should always be valid");
 
     let pixmap_size = svg.size.scale_to(target_size).to_screen_size();
-    let fit_to = usvg::FitTo::Size(height_in_pixels.into(), height_in_pixels.into());
+    let fit_to = resvg::FitTo::Size(height_in_pixels.into(), height_in_pixels.into());
 
     tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height())
         .map(|mut pixmap| {
