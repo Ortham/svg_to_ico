@@ -42,7 +42,7 @@ fn main() {
                 .value_parser(value_parser!(u16))
                 .action(ArgAction::Append)
                 .num_args(1..)
-                .default_values(&[
+                .default_values([
                     "16", "20", "24", "30", "32", "36", "40", "48", "60", "64", "72", "80", "96",
                     "128", "256",
                 ])
