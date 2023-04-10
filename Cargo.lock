@@ -393,7 +393,7 @@ dependencies = [
  "svgfilters",
  "svgtypes",
  "tiny-skia",
- "usvg",
+ "usvg 0.30.0",
 ]
 
 [[package]]
@@ -520,7 +520,7 @@ dependencies = [
  "resvg",
  "tempfile",
  "tiny-skia",
- "usvg",
+ "usvg 0.31.0",
 ]
 
 [[package]]
@@ -632,9 +632,24 @@ dependencies = [
  "base64",
  "log",
  "pico-args",
- "usvg-parser",
- "usvg-text-layout",
- "usvg-tree",
+ "usvg-parser 0.30.0",
+ "usvg-text-layout 0.30.0",
+ "usvg-tree 0.30.0",
+ "xmlwriter",
+]
+
+[[package]]
+name = "usvg"
+version = "0.31.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "67a6cab2bc32b5a4310a06c7d3c6b51b5c7897b1f7c7d2bf73bf052f5754950f"
+dependencies = [
+ "base64",
+ "log",
+ "pico-args",
+ "usvg-parser 0.31.0",
+ "usvg-text-layout 0.31.0",
+ "usvg-tree 0.31.0",
  "xmlwriter",
 ]
 
@@ -652,7 +667,24 @@ dependencies = [
  "rosvgtree",
  "strict-num",
  "svgtypes",
- "usvg-tree",
+ "usvg-tree 0.30.0",
+]
+
+[[package]]
+name = "usvg-parser"
+version = "0.31.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b2352a2c05655a7e4d3dca76cf65764efce35527472668bae5c6fc876b4c996d"
+dependencies = [
+ "data-url",
+ "flate2",
+ "imagesize",
+ "kurbo",
+ "log",
+ "rosvgtree",
+ "strict-num",
+ "svgtypes",
+ "usvg-tree 0.31.0",
 ]
 
 [[package]]
@@ -668,7 +700,23 @@ dependencies = [
  "unicode-bidi",
  "unicode-script",
  "unicode-vo",
- "usvg-tree",
+ "usvg-tree 0.30.0",
+]
+
+[[package]]
+name = "usvg-text-layout"
+version = "0.31.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "392baafaaa861ff8c9863546f92a60c51380fc49aa185a6840fb2af564c73530"
+dependencies = [
+ "fontdb",
+ "kurbo",
+ "log",
+ "rustybuzz",
+ "unicode-bidi",
+ "unicode-script",
+ "unicode-vo",
+ "usvg-tree 0.31.0",
 ]
 
 [[package]]
@@ -676,6 +724,18 @@ name = "usvg-tree"
 version = "0.30.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a58ac99ef85e0a970d0b1cdb89b9327069d853876da8b64a2bd96fc0d25cad8c"
+dependencies = [
+ "kurbo",
+ "rctree",
+ "strict-num",
+ "svgtypes",
+]
+
+[[package]]
+name = "usvg-tree"
+version = "0.31.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f9cb92fe40e0ffb45fd01349187e276a695f6c676a016d72ba09510009594829"
 dependencies = [
  "kurbo",
  "rctree",
