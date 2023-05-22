@@ -94,17 +94,16 @@ fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixma
     let target_size = usvg::Size::new(height_in_pixels.into(), height_in_pixels.into())
         .expect("Unsigned values should always be valid");
 
-    let pixmap_size = svg.size.scale_to(target_size).to_screen_size();
-    let fit_to = resvg::FitTo::Size(height_in_pixels.into(), height_in_pixels.into());
+    let pixmap_size = resvg::IntSize::from_usvg(svg.size.scale_to(target_size));
+
+    let sx = f64::from(pixmap_size.width()) / svg.size.width();
+    let sy = f64::from(pixmap_size.height()) / svg.size.height();
+    let transform = tiny_skia::Transform::from_scale(sx as f32, sy as f32);
 
     tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height())
         .map(|mut pixmap| {
-            resvg::render(
-                svg,
-                fit_to,
-                tiny_skia::Transform::identity(),
-                pixmap.as_mut(),
-            );
+            let mut pixmap_mut = pixmap.as_mut();
+            resvg::Tree::from_usvg(svg).render(transform, &mut pixmap_mut);
             pixmap
         })
         .ok_or(Error::RasterizeError)
