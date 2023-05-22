@@ -16,7 +16,7 @@ edition = "2018"
 clap = "4"
 ico = "0.3.0"
 resvg = "0.32.0"
-usvg = "0.32.0"
+usvg = "0.33.0"
 tiny-skia = "0.9"
 
 [dev-dependencies]
