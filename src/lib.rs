@@ -10,7 +10,8 @@ use std::fs::{create_dir_all, read, File};
 use std::io;
 use std::path::Path;
 
-use usvg::TreeParsing;
+use tiny_skia::Pixmap;
+use usvg::Tree;
 
 /// Error returned when creating an ICO file from an SVG file fails.
 #[derive(Debug)]
@@ -80,7 +81,7 @@ pub fn svg_to_ico(
     };
 
     let file_content = read(svg_path)?;
-    let svg = usvg::Tree::from_data(&file_content, &opt).map_err(|_| Error::ParseError)?;
+    let svg = Tree::from_data(&file_content, &opt).map_err(|_| Error::ParseError)?;
 
     let images = ico_entry_sizes
         .iter()
@@ -90,26 +91,29 @@ pub fn svg_to_ico(
     create_ico(ico_path, images).map_err(Error::from)
 }
 
-fn rasterize(svg: &usvg::Tree, height_in_pixels: u16) -> Result<tiny_skia::Pixmap, Error> {
-    let target_size = usvg::Size::new(height_in_pixels.into(), height_in_pixels.into())
+fn rasterize(svg: &Tree, height_in_pixels: u16) -> Result<Pixmap, Error> {
+    let target_height: f32 = height_in_pixels.into();
+    let target_size = tiny_skia::Size::from_wh(target_height, target_height)
         .expect("Unsigned values should always be valid");
 
-    let pixmap_size = resvg::IntSize::from_usvg(svg.size.scale_to(target_size));
+    let scaled_size = svg.size().scale_to(target_size);
 
-    let sx = f64::from(pixmap_size.width()) / svg.size.width();
-    let sy = f64::from(pixmap_size.height()) / svg.size.height();
-    let transform = tiny_skia::Transform::from_scale(sx as f32, sy as f32);
+    let sx = scaled_size.width() / svg.size().width();
+    let sy = scaled_size.height() / svg.size().height();
+    let transform = tiny_skia::Transform::from_scale(sx, sy);
 
-    tiny_skia::Pixmap::new(pixmap_size.width(), pixmap_size.height())
+    let pixmap_size = scaled_size.to_int_size();
+
+    Pixmap::new(pixmap_size.width(), pixmap_size.height())
         .map(|mut pixmap| {
             let mut pixmap_mut = pixmap.as_mut();
-            resvg::Tree::from_usvg(svg).render(transform, &mut pixmap_mut);
+            resvg::render(svg, transform, &mut pixmap_mut);
             pixmap
         })
         .ok_or(Error::RasterizeError)
 }
 
-fn create_ico(ico_path: &Path, pngs: Vec<tiny_skia::Pixmap>) -> io::Result<()> {
+fn create_ico(ico_path: &Path, pngs: Vec<Pixmap>) -> io::Result<()> {
     let mut icon_dir = ico::IconDir::new(ico::ResourceType::Icon);
 
     for png in pngs {
@@ -129,14 +133,14 @@ fn create_ico(ico_path: &Path, pngs: Vec<tiny_skia::Pixmap>) -> io::Result<()> {
 mod tests {
     use super::*;
 
-    fn load_svg(path: &Path) -> usvg::Tree {
+    fn load_svg(path: &Path) -> Tree {
         let svg_dpi = 96.0;
 
         let mut opt = usvg::Options::default();
         opt.dpi = svg_dpi.into();
 
         let file_content = read(path).unwrap();
-        usvg::Tree::from_data(&file_content, &opt).unwrap()
+        Tree::from_data(&file_content, &opt).unwrap()
     }
 
     #[test]
@@ -144,8 +148,8 @@ mod tests {
         let svg_path = Path::new("examples/example.svg");
         let svg = load_svg(svg_path);
 
-        assert_eq!(24.0, svg.size.height());
-        assert_eq!(24.0, svg.size.width());
+        assert_eq!(24.0, svg.size().height());
+        assert_eq!(24.0, svg.size().width());
 
         let image = rasterize(&svg, 400).unwrap();
         assert_eq!(400, image.height());
@@ -169,8 +173,8 @@ mod tests {
         let svg_path = Path::new("examples/landscape.svg");
         let svg = load_svg(svg_path);
 
-        assert_eq!(24.0, svg.size.height());
-        assert_eq!(48.0, svg.size.width());
+        assert_eq!(24.0, svg.size().height());
+        assert_eq!(48.0, svg.size().width());
 
         let image = rasterize(&svg, 400).unwrap();
         assert_eq!(200, image.height());
