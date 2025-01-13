@@ -9,7 +9,7 @@ env:
 
 jobs:
   create_release:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
@@ -57,7 +57,7 @@ jobs:
           asset_content_type: application/x-7z-compressed
 
   linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     needs: create_release
     steps:
       - uses: actions/checkout@v3

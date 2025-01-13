@@ -7,7 +7,7 @@ env:
 
 jobs:
   rustfmt:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
 
@@ -18,7 +18,7 @@ jobs:
     strategy:
       matrix:
         os:
-          - ubuntu-20.04
+          - ubuntu-24.04
           - windows-2019
 
     runs-on: ${{ matrix.os }}
