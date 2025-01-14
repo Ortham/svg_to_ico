@@ -76,7 +76,7 @@ pub fn svg_to_ico(
     ico_entry_sizes: &[u16],
 ) -> Result<(), Error> {
     let opt = usvg::Options {
-        dpi: svg_dpi.into(),
+        dpi: svg_dpi,
         ..Default::default()
     };
 
@@ -136,8 +136,10 @@ mod tests {
     fn load_svg(path: &Path) -> Tree {
         let svg_dpi = 96.0;
 
-        let mut opt = usvg::Options::default();
-        opt.dpi = svg_dpi.into();
+        let opt = usvg::Options::<'_> {
+            dpi: svg_dpi,
+            ..Default::default()
+        };
 
         let file_content = read(path).unwrap();
         Tree::from_data(&file_content, &opt).unwrap()
