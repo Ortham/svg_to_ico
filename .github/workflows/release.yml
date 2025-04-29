@@ -25,7 +25,7 @@ jobs:
           body: "The `.7z` archive contains a Windows binary and the `.tar.xz` archive contains a Linux binary statically linked against musl for increased portability."
 
   windows:
-    runs-on: windows-2019
+    runs-on: windows-2025
     needs: create_release
     steps:
       - uses: actions/checkout@v3
