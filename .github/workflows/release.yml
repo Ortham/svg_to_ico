@@ -11,18 +11,16 @@ jobs:
   create_release:
     runs-on: ubuntu-24.04
 
-    outputs:
-      upload_url: ${{ steps.create_release.outputs.upload_url }}
-
     steps:
-      - id: create_release
-        uses: actions/create-release@v1
+      - name: Create a draft GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: svg_to_ico ${{ github.ref }}
-          body: "The `.7z` archive contains a Windows binary and the `.tar.xz` archive contains a Linux binary statically linked against musl for increased portability."
+        run: |
+          RELEASE_TAG="${{ github.ref_name }}"
+          RELEASE_TITLE="svg_to_ico $RELEASE_TAG"
+          RELEASE_NOTES="The \`.7z\` archive contains a Windows binary and the \`.tar.xz\` archive contains a Linux binary statically linked against musl for increased portability."
+
+          gh release create --draft --title "$RELEASE_TITLE" --notes "$RELEASE_NOTES" --verify-tag --repo "${{ github.repository }}" "$RELEASE_TAG"
 
   windows:
     runs-on: windows-2025
@@ -46,15 +44,10 @@ jobs:
       - name: Package
         run: 7z a svg_to_ico.7z .\target\release\svg_to_ico.exe README.md
 
-      - name: Upload
-        uses: actions/upload-release-asset@v1
+      - name: Upload archive to GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./svg_to_ico.7z
-          asset_name: svg_to_ico.7z
-          asset_content_type: application/x-7z-compressed
+        run: gh release upload --repo "${{ github.repository }}" "${{ github.ref_name }}" svg_to_ico.7z
 
   linux:
     runs-on: ubuntu-24.04
@@ -84,15 +77,10 @@ jobs:
       - name: Package
         run: tar -cJf svg_to_ico.tar.xz README.md -C target/x86_64-unknown-linux-musl/release svg_to_ico
 
-      - name: Upload
-        uses: actions/upload-release-asset@v1
+      - name: Upload archive to GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ needs.create_release.outputs.upload_url }}
-          asset_path: ./svg_to_ico.tar.xz
-          asset_name: svg_to_ico.tar.xz
-          asset_content_type: application/x-gtar
+        run: gh release upload --repo "${{ github.repository }}" "${{ github.ref_name }}" svg_to_ico.tar.xz
 
   publish:
     runs-on: ubuntu-24.04
