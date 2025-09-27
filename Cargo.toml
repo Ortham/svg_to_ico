@@ -3,13 +3,8 @@ name = "svg_to_ico"
 version = "1.2.0"
 authors = ["Oliver Hamlet <oliver.hamlet@gmail.com>"]
 description = "A utility and Rust library to convert SVG icons into Windows ICO files."
-documentation = "https://docs.rs/svg_to_ico"
 repository = "https://github.com/Ortham/svg_to_ico.git"
-readme = "README.md"
 license = "MIT"
-exclude = [
-    "target/*",
-]
 edition = "2018"
 
 [dependencies]
