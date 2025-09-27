@@ -4,6 +4,9 @@
 [cargo-vet]
 version = "0.10"
 
+[imports.bytecode-alliance]
+url = "https://raw.githubusercontent.com/bytecodealliance/wasmtime/main/supply-chain/audits.toml"
+
 [imports.google]
 url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 
@@ -31,14 +34,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.anstyle-wincon]]
 version = "3.0.6"
-criteria = "safe-to-deploy"
-
-[[exemptions.arrayref]]
-version = "0.3.6"
-criteria = "safe-to-deploy"
-
-[[exemptions.bitflags]]
-version = "2.4.1"
 criteria = "safe-to-deploy"
 
 [[exemptions.bytemuck]]
@@ -79,10 +74,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.errno]]
 version = "0.3.10"
-criteria = "safe-to-run"
-
-[[exemptions.fastrand]]
-version = "2.1.1"
 criteria = "safe-to-run"
 
 [[exemptions.flate2]]
@@ -225,10 +216,6 @@ criteria = "safe-to-deploy"
 version = "0.25.1"
 criteria = "safe-to-deploy"
 
-[[exemptions.unicode-bidi]]
-version = "0.3.8"
-criteria = "safe-to-deploy"
-
 [[exemptions.unicode-bidi-mirroring]]
 version = "0.4.0"
 criteria = "safe-to-deploy"
@@ -336,10 +323,6 @@ criteria = "safe-to-deploy"
 [[exemptions.windows_x86_64_msvc]]
 version = "0.52.6"
 criteria = "safe-to-deploy"
-
-[[exemptions.wit-bindgen-rt]]
-version = "0.33.0"
-criteria = "safe-to-run"
 
 [[exemptions.xmlparser]]
 version = "0.13.5"
