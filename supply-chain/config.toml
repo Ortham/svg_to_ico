@@ -7,6 +7,9 @@ version = "0.10"
 [imports.google]
 url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 
+[imports.mozilla]
+url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
+
 [policy.svg_to_ico]
 audit-as-crates-io = true
 
@@ -66,10 +69,6 @@ criteria = "safe-to-deploy"
 version = "1.0.0"
 criteria = "safe-to-deploy"
 
-[[exemptions.core_maths]]
-version = "0.1.0"
-criteria = "safe-to-deploy"
-
 [[exemptions.crc32fast]]
 version = "1.3.2"
 criteria = "safe-to-deploy"
@@ -101,10 +100,6 @@ criteria = "safe-to-deploy"
 [[exemptions.fontdb]]
 version = "0.23.0"
 criteria = "safe-to-deploy"
-
-[[exemptions.getrandom]]
-version = "0.3.1"
-criteria = "safe-to-run"
 
 [[exemptions.gif]]
 version = "0.13.1"
@@ -224,10 +219,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.tiny-skia-path]]
 version = "0.11.4"
-criteria = "safe-to-deploy"
-
-[[exemptions.tinyvec_macros]]
-version = "0.1.1"
 criteria = "safe-to-deploy"
 
 [[exemptions.ttf-parser]]
