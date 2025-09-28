@@ -120,6 +120,10 @@ criteria = "safe-to-deploy"
 version = "2.0.1"
 criteria = "safe-to-deploy"
 
+[[exemptions.r-efi]]
+version = "5.3.0"
+criteria = "safe-to-run"
+
 [[exemptions.resvg]]
 version = "0.45.1"
 criteria = "safe-to-deploy"
@@ -207,10 +211,6 @@ criteria = "safe-to-deploy"
 [[exemptions.usvg]]
 version = "0.45.1"
 criteria = "safe-to-deploy"
-
-[[exemptions.wasi]]
-version = "0.13.3+wasi-0.2.2"
-criteria = "safe-to-run"
 
 [[exemptions.weezl]]
 version = "0.1.8"
