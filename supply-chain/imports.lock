@@ -1,6 +1,12 @@
 
 # cargo-vet imports lock
 
+[[publisher.libc]]
+version = "0.2.170"
+when = "2025-02-23"
+user-id = 55123
+user-login = "rust-lang-owner"
+
 [[publisher.windows-sys]]
 version = "0.48.0"
 when = "2023-03-31"
