@@ -26,7 +26,7 @@ jobs:
     runs-on: windows-2025
     needs: create_release
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - uses: actions/cache@v3
         with:
@@ -53,7 +53,7 @@ jobs:
     runs-on: ubuntu-24.04
     needs: create_release
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
 
       - uses: actions/cache@v3
         with:
@@ -91,7 +91,7 @@ jobs:
       id-token: write
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: rust-lang/crates-io-auth-action@e919bc7605cde86df457cf5b93c5e103838bd879 # v1.0.1
         id: auth
