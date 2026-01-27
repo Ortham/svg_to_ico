@@ -534,7 +534,7 @@ criteria = "safe-to-deploy"
 version = "1.6.0"
 notes = """
 Grepped for `-i cipher`, `-i crypto`, `'\bfs\b'``, `'\bnet\b'``, `'\bunsafe\b'``
-and there were no hits except for some \"unsafe\" appearing in comments:
+and there were no hits except for some "unsafe" appearing in comments:
 
 ```
 src/arrayvec.rs:    // Note: This shouldn't use A::CAPACITY, because unsafe code can't rely on
