@@ -1,7 +1,10 @@
 
 # cargo-vet audits file
 
-[audits]
+[[audits.clap_derive]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.5.40 -> 4.5.49"
 
 [[trusted.libc]]
 criteria = "safe-to-deploy"
