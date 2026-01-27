@@ -1,6 +1,11 @@
 
 # cargo-vet audits file
 
+[[audits.clap_builder]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.5.47 -> 4.5.54"
+
 [[audits.clap_derive]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
