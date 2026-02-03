@@ -14,7 +14,7 @@ url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
 
 [policy.svg_to_ico]
-audit-as-crates-io = true
+audit-as-crates-io = false
 
 [[exemptions.anstream]]
 version = "0.6.18"
@@ -162,10 +162,6 @@ criteria = "safe-to-deploy"
 
 [[exemptions.strict-num]]
 version = "0.1.1"
-criteria = "safe-to-deploy"
-
-[[exemptions.svg_to_ico]]
-version = "1.2.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.svgtypes]]
