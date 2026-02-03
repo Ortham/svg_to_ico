@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.3.0] - 2026-02-03
+
+### Changed
+
+- Releases are now built and published using GitHub Actions.
+- Releases are now published to crates.io using Trusted Publishing.
+- The dependency version ranges used now allow a greater range of versions.
+- Updated `clap` to v4.5.54.
+- Updated `ico` to v0.5.0.
+- Updated `resvg` and `usvg` to v0.45.1.
+- Updated `tiny-skia` to v0.11.4.
+
 ## [1.2.0] - 2022-09-14
 
 ### Fixed
