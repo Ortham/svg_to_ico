@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1] - 2026-02-03
+
+### Fixed
+
+- The GitHub Actions release job's permissions.
+
 ## [1.3.0] - 2026-02-03
 
 ### Changed
