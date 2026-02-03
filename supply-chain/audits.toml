@@ -1,6 +1,11 @@
 
 # cargo-vet audits file
 
+[[audits.autocfg]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "1.4.0 -> 1.5.0"
+
 [[audits.clap]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
@@ -20,6 +25,31 @@ delta = "4.5.40 -> 4.5.49"
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.4.0 -> 0.5.0"
+
+[[audits.imagesize]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.13.0 -> 0.14.0"
+
+[[audits.resvg]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.45.1 -> 0.46.0"
+
+[[audits.roxmltree]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.20.0 -> 0.21.1"
+
+[[audits.svgtypes]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.15.3 -> 0.16.1"
+
+[[audits.usvg]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.45.1 -> 0.46.0"
 
 [[trusted.libc]]
 criteria = "safe-to-deploy"
