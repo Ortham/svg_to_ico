@@ -11,15 +11,30 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.5.47 -> 4.5.54"
 
+[[audits.clap]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.5.54 -> 4.5.58"
+
 [[audits.clap_builder]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.5.47 -> 4.5.54"
 
+[[audits.clap_builder]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.5.54 -> 4.5.58"
+
 [[audits.clap_derive]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.5.40 -> 4.5.49"
+
+[[audits.clap_lex]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.7.4 -> 1.0.0"
 
 [[audits.ico]]
 who = "Oliver Hamlet <git@ortham.net>"
