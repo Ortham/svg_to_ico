@@ -10,8 +10,8 @@ use std::fs::{create_dir_all, read, File};
 use std::io;
 use std::path::Path;
 
-use tiny_skia::Pixmap;
-use usvg::Tree;
+use resvg::tiny_skia::Pixmap;
+use resvg::usvg::Tree;
 
 /// Error returned when creating an ICO file from an SVG file fails.
 #[derive(Debug)]
@@ -75,7 +75,7 @@ pub fn svg_to_ico(
     ico_path: &Path,
     ico_entry_sizes: &[u16],
 ) -> Result<(), Error> {
-    let opt = usvg::Options {
+    let opt = resvg::usvg::Options {
         dpi: svg_dpi,
         ..Default::default()
     };
@@ -93,14 +93,14 @@ pub fn svg_to_ico(
 
 fn rasterize(svg: &Tree, height_in_pixels: u16) -> Result<Pixmap, Error> {
     let target_height: f32 = height_in_pixels.into();
-    let target_size = tiny_skia::Size::from_wh(target_height, target_height)
+    let target_size = resvg::tiny_skia::Size::from_wh(target_height, target_height)
         .expect("Unsigned values should always be valid");
 
     let scaled_size = svg.size().scale_to(target_size);
 
     let sx = scaled_size.width() / svg.size().width();
     let sy = scaled_size.height() / svg.size().height();
-    let transform = tiny_skia::Transform::from_scale(sx, sy);
+    let transform = resvg::tiny_skia::Transform::from_scale(sx, sy);
 
     let pixmap_size = scaled_size.to_int_size();
 
@@ -136,7 +136,7 @@ mod tests {
     fn load_svg(path: &Path) -> Tree {
         let svg_dpi = 96.0;
 
-        let opt = usvg::Options::<'_> {
+        let opt = resvg::usvg::Options::<'_> {
             dpi: svg_dpi,
             ..Default::default()
         };
