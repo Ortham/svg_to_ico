@@ -13,6 +13,9 @@ url = "https://raw.githubusercontent.com/google/supply-chain/main/audits.toml"
 [imports.mozilla]
 url = "https://raw.githubusercontent.com/mozilla/supply-chain/main/audits.toml"
 
+[imports.ortham]
+url = "https://raw.githubusercontent.com/Ortham/supply-chain/refs/heads/main/audits.toml"
+
 [policy.svg_to_ico]
 audit-as-crates-io = false
 
