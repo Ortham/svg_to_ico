@@ -171,10 +171,6 @@ criteria = "safe-to-deploy"
 version = "0.15.3"
 criteria = "safe-to-deploy"
 
-[[exemptions.tempfile]]
-version = "3.22.0"
-criteria = "safe-to-run"
-
 [[exemptions.tiny-skia]]
 version = "0.11.4"
 criteria = "safe-to-deploy"
