@@ -1,6 +1,21 @@
 
 # cargo-vet audits file
 
+[[audits.anstream]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.6.18 -> 1.0.0"
+
+[[audits.anstyle]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "1.0.8 -> 1.0.13"
+
+[[audits.anstyle-parse]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.2.0 -> 1.0.0"
+
 [[audits.autocfg]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
@@ -16,6 +31,11 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.5.54 -> 4.5.58"
 
+[[audits.clap]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.5.58 -> 4.6.0"
+
 [[audits.clap_builder]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
@@ -25,6 +45,11 @@ delta = "4.5.47 -> 4.5.54"
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.5.54 -> 4.5.58"
+
+[[audits.clap_builder]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.5.58 -> 4.6.0"
 
 [[audits.clap_derive]]
 who = "Oliver Hamlet <git@ortham.net>"
