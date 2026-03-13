@@ -88,8 +88,9 @@ version = "0.2.11"
 criteria = "safe-to-deploy"
 
 [[exemptions.linux-raw-sys]]
-version = "0.9.2"
+version = "0.12.1"
 criteria = "safe-to-run"
+notes = "At time of review this was only built if targeting WASI, which is not an intended target."
 
 [[exemptions.memmap2]]
 version = "0.9.5"
@@ -124,8 +125,9 @@ version = "0.20.0"
 criteria = "safe-to-deploy"
 
 [[exemptions.rustix]]
-version = "1.0.2"
+version = "1.1.4"
 criteria = "safe-to-run"
+notes = "At time of review this was only built if targeting WASI, which is not an intended target."
 
 [[exemptions.rustybuzz]]
 version = "0.20.1"

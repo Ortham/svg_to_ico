@@ -2,8 +2,8 @@
 # cargo-vet imports lock
 
 [[publisher.libc]]
-version = "0.2.170"
-when = "2025-02-23"
+version = "0.2.183"
+when = "2026-03-08"
 user-id = 55123
 user-login = "rust-lang-owner"
 
@@ -21,135 +21,16 @@ user-id = 1
 user-login = "alexcrichton"
 user-name = "Alex Crichton"
 
-[[publisher.windows-sys]]
-version = "0.48.0"
-when = "2023-03-31"
+[[publisher.windows-link]]
+version = "0.2.1"
+when = "2025-10-06"
 user-id = 64539
 user-login = "kennykerr"
 user-name = "Kenny Kerr"
 
 [[publisher.windows-sys]]
-version = "0.59.0"
-when = "2024-07-30"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows-targets]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows-targets]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_aarch64_gnullvm]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_aarch64_gnullvm]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_aarch64_msvc]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_aarch64_msvc]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_gnu]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_gnu]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_gnullvm]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_msvc]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_i686_msvc]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_gnu]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_gnu]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_gnullvm]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_gnullvm]]
-version = "0.52.6"
-when = "2024-07-03"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_msvc]]
-version = "0.48.0"
-when = "2023-03-31"
-user-id = 64539
-user-login = "kennykerr"
-user-name = "Kenny Kerr"
-
-[[publisher.windows_x86_64_msvc]]
-version = "0.52.6"
-when = "2024-07-03"
+version = "0.61.2"
+when = "2025-10-06"
 user-id = 64539
 user-login = "kennykerr"
 user-name = "Kenny Kerr"
