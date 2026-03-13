@@ -4,7 +4,17 @@
 [[audits.anstream]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
+version = "0.6.18"
+
+[[audits.anstream]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
 delta = "0.6.18 -> 1.0.0"
+
+[[audits.anstyle]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "1.0.8"
 
 [[audits.anstyle]]
 who = "Oliver Hamlet <git@ortham.net>"
@@ -15,6 +25,21 @@ delta = "1.0.8 -> 1.0.13"
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.2.0 -> 1.0.0"
+
+[[audits.anstyle-query]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "1.0.0"
+
+[[audits.anstyle-query]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "1.0.0 -> 1.1.5"
+
+[[audits.anstyle-wincon]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "3.0.11"
 
 [[audits.autocfg]]
 who = "Oliver Hamlet <git@ortham.net>"
@@ -61,6 +86,11 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.7.4 -> 1.0.0"
 
+[[audits.errno]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "0.3.14"
+
 [[audits.ico]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
@@ -70,6 +100,11 @@ delta = "0.4.0 -> 0.5.0"
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.13.0 -> 0.14.0"
+
+[[audits.once_cell_polyfill]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "1.70.2"
 
 [[audits.resvg]]
 who = "Oliver Hamlet <git@ortham.net>"
@@ -97,17 +132,26 @@ user-id = 55123 # rust-lang-owner
 start = "2024-08-15"
 end = "2026-09-28"
 
+[[trusted.windows-link]]
+criteria = "safe-to-deploy"
+user-id = 64539 # Kenny Kerr (kennykerr)
+start = "2024-07-17"
+end = "2027-03-13"
+notes = "kennykerr is on the Windows team at Microsoft."
+
 [[trusted.windows-sys]]
 criteria = "safe-to-deploy"
 user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2021-11-15"
 end = "2026-09-28"
+notes = "kennykerr is on the Windows team at Microsoft."
 
 [[trusted.windows-targets]]
 criteria = "safe-to-deploy"
 user-id = 64539 # Kenny Kerr (kennykerr)
 start = "2022-09-09"
 end = "2026-09-28"
+notes = "kennykerr is on the Windows team at Microsoft."
 
 [[trusted.windows_aarch64_gnullvm]]
 criteria = "safe-to-deploy"
