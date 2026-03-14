@@ -88,6 +88,10 @@ version = "0.12.1"
 criteria = "safe-to-run"
 notes = "At time of review this was only built if targeting WASI, which is not an intended target."
 
+[[exemptions.memchr]]
+version = "2.7.5"
+criteria = "safe-to-deploy"
+
 [[exemptions.memmap2]]
 version = "0.9.5"
 criteria = "safe-to-deploy"

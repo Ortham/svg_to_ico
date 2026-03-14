@@ -10,7 +10,7 @@ edition = "2018"
 [dependencies]
 clap = "4"
 ico = ">= 0.1.0, < 0.6"
-resvg = ">= 0.42.0, < 0.46"
+resvg = ">= 0.42.0, < 0.48"
 
 [dev-dependencies]
 tempfile = "3"
