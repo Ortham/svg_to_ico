@@ -59,10 +59,6 @@ criteria = "safe-to-deploy"
 version = "0.23.0"
 criteria = "safe-to-deploy"
 
-[[exemptions.gif]]
-version = "0.13.1"
-criteria = "safe-to-deploy"
-
 [[exemptions.ico]]
 version = "0.4.0"
 criteria = "safe-to-deploy"
@@ -189,20 +185,12 @@ criteria = "safe-to-deploy"
 version = "0.45.1"
 criteria = "safe-to-deploy"
 
-[[exemptions.weezl]]
-version = "0.1.8"
-criteria = "safe-to-deploy"
-
 [[exemptions.xmlparser]]
 version = "0.13.5"
 criteria = "safe-to-deploy"
 
 [[exemptions.xmlwriter]]
 version = "0.1.0"
-criteria = "safe-to-deploy"
-
-[[exemptions.zune-core]]
-version = "0.4.12"
 criteria = "safe-to-deploy"
 
 [[exemptions.zune-jpeg]]

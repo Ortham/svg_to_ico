@@ -41,10 +41,20 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 version = "3.0.11"
 
+[[audits.arrayref]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.3.6 -> 0.3.9"
+
 [[audits.autocfg]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "1.4.0 -> 1.5.0"
+
+[[audits.bytemuck]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "1.22.0 -> 1.25.0"
 
 [[audits.clap]]
 who = "Oliver Hamlet <git@ortham.net>"
@@ -91,25 +101,60 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 version = "0.3.14"
 
+[[audits.gif]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "0.13.1"
+
+[[audits.gif]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.13.1 -> 0.14.1"
+
 [[audits.ico]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.4.0 -> 0.5.0"
+
+[[audits.image-webp]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.2.1 -> 0.2.4"
 
 [[audits.imagesize]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.13.0 -> 0.14.0"
 
+[[audits.kurbo]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.11.1 -> 0.13.0"
+
+[[audits.memchr]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "2.7.5 -> 2.8.0"
+
 [[audits.once_cell_polyfill]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 version = "1.70.2"
 
+[[audits.png]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.18.0-rc -> 0.18.1"
+
 [[audits.resvg]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.45.1 -> 0.46.0"
+
+[[audits.resvg]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.46.0 -> 0.47.0"
 
 [[audits.roxmltree]]
 who = "Oliver Hamlet <git@ortham.net>"
@@ -121,10 +166,50 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.15.3 -> 0.16.1"
 
+[[audits.tiny-skia]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.11.4 -> 0.12.0"
+
+[[audits.tiny-skia-path]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.11.4 -> 0.12.0"
+
 [[audits.usvg]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "0.45.1 -> 0.46.0"
+
+[[audits.usvg]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.46.0 -> 0.47.0"
+
+[[audits.weezl]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "0.1.8"
+
+[[audits.weezl]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.1.8 -> 0.1.12"
+
+[[audits.zune-core]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+version = "0.4.12"
+
+[[audits.zune-core]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.4.12 -> 0.5.1"
+
+[[audits.zune-jpeg]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "0.4.13 -> 0.5.12"
 
 [[trusted.libc]]
 criteria = "safe-to-deploy"
