@@ -21,6 +21,11 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "1.0.8 -> 1.0.13"
 
+[[audits.anstyle]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "1.0.13 -> 1.0.14"
+
 [[audits.anstyle-parse]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
@@ -76,6 +81,11 @@ who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.6.0 -> 4.6.1"
 
+[[audits.clap]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.6.1 -> 4.6.6"
+
 [[audits.clap_builder]]
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
@@ -90,6 +100,11 @@ delta = "4.5.54 -> 4.5.58"
 who = "Oliver Hamlet <git@ortham.net>"
 criteria = "safe-to-deploy"
 delta = "4.5.58 -> 4.6.0"
+
+[[audits.clap_builder]]
+who = "Oliver Hamlet <git@ortham.net>"
+criteria = "safe-to-deploy"
+delta = "4.6.0 -> 4.6.6"
 
 [[audits.clap_derive]]
 who = "Oliver Hamlet <git@ortham.net>"
